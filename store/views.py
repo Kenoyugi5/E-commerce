@@ -8,6 +8,10 @@ from .forms import SignUpForm
 from django import forms
 
 
+def product(request, pk):
+	product = Product.objects.get(id=pk)
+	return render(request, 'store/product.html', {'product': product})
+
 def home(request):
 	products = Product.objects.all()
 	return render(request, 'store/home.html', {'products': products})
