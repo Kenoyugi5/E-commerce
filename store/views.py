@@ -16,21 +16,21 @@ def category(request, foo):
 		# Look up the category
 		category = Category.objects.get(name=foo)
 		products = Product.objects.filter(category=category)
-		return render(request, 'store/category.html', {'products': products, 'category': category})
+		return render(request, 'category.html', {'products': products, 'category': category})
 	except:
 		messages.success(request, ("Category does not exist"))
 		return redirect('home')
 
 def product(request, pk):
 	product = Product.objects.get(id=pk)
-	return render(request, 'store/product.html', {'product': product})
+	return render(request, 'product.html', {'product': product})
 
 def home(request):
 	products = Product.objects.all()
-	return render(request, 'store/home.html', {'products': products})
+	return render(request, 'home.html', {'products': products})
 
 def about(request):
-	return render(request, 'store/about.html', {})
+	return render(request, 'about.html', {})
 
 def login_user(request):
 	if request.method == "POST":
@@ -46,7 +46,7 @@ def login_user(request):
 			return redirect('login')
 
 	else:
-		return render(request, 'store/login.html', {})
+		return render(request, 'login.html', {})
 
 def logout_user(request):
 	logout(request)
@@ -70,4 +70,4 @@ def register_user(request):
 			messages.success(request, ("There was a problem registering. Please try again"))
 			return redirect('register')
 	else:
-		return render(request, 'store/register.html', {'form': form})
+		return render(request, 'register.html', {'form': form})
