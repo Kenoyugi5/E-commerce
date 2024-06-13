@@ -9,6 +9,7 @@ admin.site.register(Product)
 admin.site.register(Order)
 admin.site.register(Profile)
 
+
 # Mix profile info and user info
 class ProfileInline(admin.StackedInline):
 	model = Profile
@@ -16,7 +17,7 @@ class ProfileInline(admin.StackedInline):
 # Extend User Model
 class UserAdmin(admin.ModelAdmin):
 	model = User
-	fields = ["username", "first_name", "last_name", "email"]
+	field = ["username", "first_name", "last_name", "email"]
 	inlines = [ProfileInline]
 
 # Unregister the old way
