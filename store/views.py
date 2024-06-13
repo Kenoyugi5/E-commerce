@@ -10,16 +10,14 @@ from django import forms
 
 def update_info(request):
 	if request.user.is_authenticated:
-		current_user = Profile.objects.get(id=request.user.id)
+		current_user = Profile.objects.get(user__id=request.user.id)
 		form = UserInfoForm(request.POST or None, instance=current_user)
 
 		if form.is_valid():
 			form.save()
-
 			messages.success(request, "Your Info Has Been Updated")
 			return redirect('home')
-		else:
-			return render(request, "update_info.html", {"form": form})
+		return render(request, "update_info.html", {"form": form})
 	else:
 		messages.success(request, "You Must Be Logged In to Access That Page.")
 		return redirect('home')
@@ -127,8 +125,8 @@ def register_user(request):
 
 			user = authenticate(username=username, password=password)
 			login(request, user)
-			messages.success(request, ("You have been registered successfully."))
-			return redirect('home')
+			messages.success(request, ("Username Created- Please Fill Out Your Info Below."))
+			return redirect('update_info')
 		else:
 			messages.success(request, ("There was a problem registering. Please try again"))
 			return redirect('register')
